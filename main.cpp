@@ -6,34 +6,34 @@ class Node{
 public:
     string title;
     Node *next;
+    Node *prev;
     Node (string s){
         title = s;
         next = nullptr;
+        prev = nullptr;
     }
 };
 class playlist {
 private:
     Node *head;
     Node *current;
-    Node *Prev;
 public:
     playlist(){
         head = nullptr;
         current = nullptr;
-        Prev = nullptr;
     }
     void addSong (string name){
         Node *NewSong = new Node(name);
         if( head == nullptr){
             head = NewSong;
             current = NewSong;
-            Prev = NewSong;
         } else {
             Node* temp = head;
             while (temp->next != nullptr){
                 temp = temp->next;
             }
             temp->next = NewSong;
+            NewSong->prev = temp;
         }
         cout << "Added :" << name <<endl;
     }
@@ -72,6 +72,15 @@ public:
         current = current->next;
         play();
     }
+    void PlayPrevoius(){
+        if(current == nullptr){
+            cout << "NO songs in playlist."<<endl;
+            return;
+        } 
+        current = current->prev;
+        play();
+
+    }
 
 };
 int main () {
@@ -84,6 +93,7 @@ int main () {
         cout<< "2. Show Playlist"<< endl;
         cout<< "3. Play Music"<< endl;
         cout<< "4. Next Music"<< endl;
+        cout<< "5. Prevoius"<< endl;
         cout<< "0. exit program"<< endl;
         cout<< "Choose Option : ";
         cin >> option ;
@@ -103,6 +113,9 @@ int main () {
             case 4 :
                 p.playnext();
                 break; 
+            case 5 : 
+                p.PlayPrevoius();
+                break;
             case 0: 
                 cout<<"Exit program"<<endl;
             
