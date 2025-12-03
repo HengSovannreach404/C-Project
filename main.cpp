@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 using namespace std;
 class Node{
@@ -47,7 +46,7 @@ public:
                 if ( temp == current){
                     cout<< "> ";
                 } else {
-                    cout << "  " <<endl;
+                    cout << "  " ;
                 }
                 cout << temp->title << endl;
                 temp = temp->next;
@@ -77,6 +76,11 @@ public:
             cout << "NO songs in playlist."<<endl;
             return;
         } 
+        if (current->prev == nullptr) {
+        cout << "This is the first song." << endl;
+        return;
+        }
+
         current = current->prev;
         play();
 
@@ -100,8 +104,8 @@ int main () {
         switch (option){
             case 1 : 
                 cout << "Enter A Song : " ;
-                cin.ignore();
-                getline(cin, name);
+                cin.ignore();           // Remove leftover to add new song
+                getline(cin, name);     // read a full song include a space
                 p.addSong(name);
                 break;
             case 2 : 
@@ -118,8 +122,6 @@ int main () {
                 break;
             case 0: 
                 cout<<"Exit program"<<endl;
-            
-            
         }
 
     }while(option!=0);
